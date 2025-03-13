@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: egress-gateway
+  namespace: gytest
+spec:
+  selector:
+    istio: egressgateway  # ✅ Egress Gateway 사용
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - naver.com
+    tls:
+      mode: SIMPLE  
+      credentialName: curl-tls-secret

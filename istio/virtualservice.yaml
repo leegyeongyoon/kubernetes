@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: external-vs
+  namespace: gytest
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - egress-gateway  
+  tls:
+  - match:
+    - port: 443
+      sniHosts:
+      - naver.com
+    route:
+    - destination:
+        host: naver.com
+        port:
+          number: 443

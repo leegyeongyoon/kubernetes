@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: example-mtls
+  namespace: gytest
+spec:
+  host: naver.com
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+      #credentialName: curl-tls-secret

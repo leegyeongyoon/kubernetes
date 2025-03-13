@@ -1,0 +1,12 @@
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: curl-telemetry
+  namespace: gytest
+spec:
+  selector:
+    matchLabels:
+      app: curl  
+  accessLogging:
+  - providers:
+      - name: envoy
