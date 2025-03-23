@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: velero-metrics
+  namespace: velero
+  labels:
+    app.kubernetes.io/name: velero
+spec:
+  selector:
+    app.kubernetes.io/name: velero
+  ports:
+    - port: 8085
+      targetPort: 8085
+      protocol: TCP
+      name: http-metrics
