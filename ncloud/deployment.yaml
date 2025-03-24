@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ncloud-cli
+  namespace: utils  # 원하는 네임스페이스로 변경 가능
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ncloud-cli
+  template:
+    metadata:
+      labels:
+        app: ncloud-cli
+    spec:
+      containers:
+        - name: ncloud-cli
+          image: aidt-container-registry.ncr.gov-ntruss.com/ncloud-cli
+          imagePullPolicy: IfNotPresent
+          command: [ "tail", "-f", "/dev/null" ]  # 계속 살아 있도록 설정
+          env:
+            - name: NCLOUD_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ncloud-secret
+                  key: accessKey
+            - name: NCLOUD_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ncloud-secret
+                  key: secretKey

@@ -1,0 +1,13 @@
+FROM openjdk:8-jdk
+
+WORKDIR /opt/ncloud-cli
+
+# CLI 다운로드 (직접 다운로드도 가능)
+RUN wget https://www.ncloud.com/api/support/download/files/cli/CLI_1.1.23_20241121.zip && \
+    unzip CLI_1.1.23_20241121.zip && \
+    mv CLI_1.1.23_20241121/cli_linux/* ./ && \
+    chmod +x ./ncloud && \
+    ln -s /opt/ncloud-cli/ncloud /usr/local/bin/ncloud
+
+# 기본 쉘로 진입 가능하게
+ENTRYPOINT ["/bin/bash"]
