@@ -12,19 +12,26 @@ spec:
       labels:
         app: ncloud-cli
     spec:
+      imagePullSecrets:
+      - name: ncloud-reg-cred
       containers:
         - name: ncloud-cli
-          image: aidt-container-registry.ncr.gov-ntruss.com/ncloud-cli
+          image: navercloud-cli:latest
           imagePullPolicy: IfNotPresent
           command: [ "tail", "-f", "/dev/null" ]  # 계속 살아 있도록 설정
           env:
-            - name: NCLOUD_ACCESS_KEY
+            - name: NCLOUD_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: ncloud-secret
-                  key: accessKey
-            - name: NCLOUD_SECRET_KEY
+                  key: ncloud_access_key_id
+            - name: NCLOUD_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: ncloud-secret
-                  key: secretKey
+                  key: ncloud_secret_access_key
+            - name: NCLOUD_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ncloud-secret
+                  key: ncloud_api_url
